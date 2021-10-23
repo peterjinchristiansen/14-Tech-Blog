@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     let allPosts = []
     await Post.findAll()
     .then(posts => {
-        posts.forEach(x => {
+        posts.forEach(async x => {
             let postComments = []
             await Comment.findAll({ where: { postParent: x.dataValues.id }})
                 .then(comments => {
@@ -30,7 +30,7 @@ router.get('/dashboard', async (req, res) => {
     if(req.session.isLoggedIn) {
         await Post.findAll({ where: { postCreator: req.session.username }})
         .then(posts => {
-            posts.forEach(x => {
+            posts.forEach(async x => {
                 let postComments = []
                 await Comment.findAll({ where: { postParent: x.dataValues.id }})
                     .then(comments => {
