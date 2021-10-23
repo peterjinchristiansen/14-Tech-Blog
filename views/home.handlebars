@@ -1,0 +1,43 @@
+<div class="d-flex flex-wrap m-5 justify-content-center">
+    {{#each allPosts}}
+    <div class="d-flex flex-wrap m-5 justify-content-center">
+        <div class="card text-center m-3" type="button" data-bs-toggle="modal" data-bs-target="#postModal{{ id }}">
+            <div class="bg-info py-4">
+                <i class="fas fa-user fa-4x"></i>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ title }}</h3>
+                <h5>Submitted by: {{ postCreator }}</h5>
+                <p class="card-text">Date added: {{ createdAt }}</p>
+            </div>
+        </div>
+    </div>
+    <div id="postModal{{ id }}" class="modal fade">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content modalBackground">
+                <div class="modal-header">
+                    <h3 class="modal-title">{{ title }}</h3>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="mb-5">{{ content }}</h3>
+                    <h5>Submitted by: {{ postCreator }}</h5>
+                    <p>Post Created: {{ createdAt }}</p>
+                    <p>Last Updated: {{ updatedAt }}</p>
+                    <h4 class="mt-5">Comments:</h4>
+                    {{#each comments}}
+                    <div class="my-4">
+                        <h5>{{ commentCreator }}</h5>
+                        <p>{{ content }}</p>
+                    </div>
+                    {{/each}}
+                    <form>
+                        <textarea id="commentContent{{ id }}" class="w-100" cols="30" rows="3" placeholder="Add comment"></textarea>
+                        <button id="{{ id }}" onclick="commentSubmit(this.id)" class="btn btn-info mx-auto my-3">Submit Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

@@ -1,0 +1,97 @@
+<h1 class="text-light m-5">{{ username }}'s Posts
+    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#createPostModal">Create Post</button>
+</h1>
+
+<div id="createPostModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center modalBackground">
+            <div class="modal-header">
+                <h1 class="modal-title">Create Post</h1>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form class="modal-body">
+                <h3 class="m-3">Post Title</h3>
+                <input id="createPostTitle" class="form-control" type="text" autocomplete="off" placeholder="Title">
+                <h3 class="m-3">Post Content</h3>
+                <textarea id="createPostContent" cols="50" rows="10" placeholder="Content"></textarea>
+            </form>
+            <div class="modal-footer">
+                <button id="createPostSubmit" class="btn btn-info">Save Post</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-wrap m-5 justify-content-center">
+    {{#each allPosts}}
+    <div class="d-flex flex-wrap m-5 justify-content-center">
+        <div class="card text-center m-3" type="button" data-bs-toggle="modal" data-bs-target="#postModal{{ id }}">
+            <div class="bg-info py-4">
+                <i class="fas fa-user fa-4x"></i>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ title }}</h3>
+                <p class="card-text">{{ content }}</p>
+                <div class="d-flex">
+                    <div class="ms-auto">
+                        <button class="btn btn-warning mx-2 text-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ id }}">Edit</button>
+                        <button id="delete{{ id }}" onclick="deleteSubmit(this.id)" class="btn btn-danger mx-2">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="postModal{{ id }}" class="modal fade">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content modalBackground">
+                <div class="modal-header">
+                    <h3 class="modal-title">{{ title }}</h3>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="mb-5">{{ content }}</h3>
+                    <h5>Submitted by: {{ postCreator }}</h5>
+                    <p>Post Created: {{ createdAt }}</p>
+                    <p>Last Updated: {{ updatedAt }}</p>
+                    <h4 class="mt-5">Comments:</h4>
+                    {{#each comments}}
+                    <div class="my-4">
+                        <h5>{{ commentCreator }}</h5>
+                        <p>{{ content }}</p>
+                    </div>
+                    {{/each}}
+                    <form>
+                        <textarea id="commentContent{{ id }}" class="w-100" cols="30" rows="3" placeholder="Add comment"></textarea>
+                        <button id="{{ id }}" onclick="commentSubmit(this.id)" class="btn btn-info mx-auto my-3">Submit Comment</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning mx-2 text-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ id }}">Edit</button>
+                    <button id="delete{{ id }}" onclick="deleteSubmit(this.id)" class="btn btn-danger mx-2">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="editModal{{ id }}" class="modal fade">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content modalBackground">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Post</h3>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form class="modal-body">
+                    <label for="changedTitle{{ id }}">Title</label>
+                    <input id="changedTitle{{ id }}" class="form-control" type="text" value="{{ title }}" placeholder="Title...">
+                    <label for="changedContent{{ id }}">Content</label>
+                    <textarea id="changedContent{{ id }}" class="form-control" cols="50" rows="5" placeholder="Content...">{{ content }}</textarea>
+                </form>
+                <div class="modal-footer">
+                    <button id="edit{{ id }}" onclick="editSubmit(this.id)" class="btn btn-warning mx-2 text-primary">Save Changes</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

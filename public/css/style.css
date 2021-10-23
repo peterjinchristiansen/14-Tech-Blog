@@ -1,0 +1,19 @@
+body {
+    background-color: #606060;
+}
+
+.modalBackground {
+    background-color: pink;
+}
+
+#navbarLogo {
+    font-family: 'Akronim', cursive;
+}
+
+p {
+    margin: 0;
+}
+
+.modal-title {
+    font-size: 40px;
+}
