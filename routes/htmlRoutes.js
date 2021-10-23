@@ -1,63 +1,69 @@
 const router = require('express').Router()
+const User = require('../models/User')
 const Post = require('../models/Post')
 const Comment = require('../models/Comment')
 
 router.get('/', async (req, res) => {
     let allPosts = []
-    await Post.findAll()
-    .then(posts => {
-        posts.forEach(async x => {
-            let postComments = []
-            await Comment.findAll({ where: { postParent: x.dataValues.id }})
-                .then(comments => {
-                    comments.forEach(x => {
-                        postComments.push(x.dataValues)
-                    })
-                })
-            let post = x.dataValues
-            post['comments'] = postComments
-            allPosts.push(post)
-            console.log('1', allPosts)
-        }).then(data => {
-            res.render('home', {
-                allPosts,
-                loginStatus: req.session.isLoggedIn,
-            })
-        })
+    let allComments = []
+    const findPosts = await Post.findAll({ order: [['updatedAt', 'ASC']] })
+    const findComments = await Comment.findAll({ order: [['updatedAt', 'ASC']] })
+    findPosts.forEach(post => {
+        allPosts.push(post.dataValues)
     })
-
-})
+    findComments.forEach(comment => {
+        allComments.push(comment.dataValues)
+    })
+    let allPostsModified = []
+    allPosts.forEach(post => {
+        let thisPostsComments = []
+        for(i = 0; i < allComments.length; i++) {
+            if(post.id === allComments[i].postParent) {
+                thisPostsComments.push(allComments[i])
+            }
+        }
+        post['comments'] = thisPostsComments
+        allPostsModified.push(post)
+    })
+    res.render('home', {
+        loginStatus: req.session.isLoggedIn,
+        allPosts: allPostsModified
+    })
+});
 
 router.get('/dashboard', async (req, res) => {
     let allPosts = []
-    if(req.session.isLoggedIn) {
-        await Post.findAll({ where: { postCreator: req.session.username }})
-        .then(posts => {
-            console.log(posts)
-            posts.forEach(async x => {
-                let postComments = []
-                await Comment.findAll({ where: { postParent: x.dataValues.id }})
-                    .then(comments => {
-                        comments.forEach(x => {
-                            postComments.push(x.dataValues)
-                        })
-                    })
-                let post = x.dataValues
-                post['comments'] = postComments
-                allPosts.push(post)
-                console.log(allPosts)
-            })
-        })
-        res.render('dashboard', {
-            allPosts: allPosts,
-            loginStatus: req.session.isLoggedIn,
-            username: req.session.username
-        })
-    } else {
-        res.redirect('/')
-    }
+    let allComments = []
+    const findPosts = await Post.findAll(
+        { where: { postCreator: req.session.username }},
+        { order: [['updatedAt', 'ASC']] }
+    )
+    const findComments = await Comment.findAll({ order: [['updatedAt', 'ASC']] })
 
-})
+    findPosts.forEach(post => {
+        allPosts.push(post.dataValues)
+    })
+    findComments.forEach(comment => {
+        allComments.push(comment.dataValues)
+    })
+    let allPostsModified = []
+    allPosts.forEach(post => {
+        let thisPostsComments = []
+        for(i = 0; i < allComments.length; i++) {
+            if(post.id === allComments[i].postParent) {
+                thisPostsComments.push(allComments[i])
+            }
+        }
+        post['comments'] = thisPostsComments
+        allPostsModified.push(post)
+    })
+    console.log(req.session.username)
+    res.render('dashboard', {
+        loginStatus: req.session.isLoggedIn,
+        allPosts: allPostsModified,
+        username: req.session.username
+    })
+});
 
 router.get('/login', (req, res) => {
     if(req.session.isLoggedIn) {

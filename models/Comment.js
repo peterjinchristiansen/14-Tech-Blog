@@ -19,11 +19,11 @@ const Comment = database.define('comment', {
             }
         }
     },
-    commentCreator: {
+    postParent: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    postParent: {
+    commentCreator: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -35,13 +35,7 @@ const Comment = database.define('comment', {
                 msg: 'There was an error getting the date'
             }
         }
-    },    
-    updatedAt: {
-        type: Sequelize.STRING,
-        allowNull: false
     }
-}, {
-    timestamps: false
 })
 
 module.exports = Comment

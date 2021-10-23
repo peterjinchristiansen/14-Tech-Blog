@@ -10,7 +10,6 @@ exports.create = async (req, res) => {
             title: req.body.title,
             content: req.body.content,
             createdAt: now,
-            updatedAt: now,
             postCreator: req.session.username
         })
         return res.json({ success: 'Post submitted' })
