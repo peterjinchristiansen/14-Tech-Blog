@@ -18,14 +18,14 @@ router.get('/', async (req, res) => {
             post['comments'] = postComments
             allPosts.push(post)
             console.log('1', allPosts)
+        }).then(data => {
+            res.render('home', {
+                allPosts,
+                loginStatus: req.session.isLoggedIn,
+            })
         })
     })
-    console.log('hello??')
-    console.log('2', allPosts)
-    res.render('home', {
-        allPosts,
-        loginStatus: req.session.isLoggedIn,
-    })
+
 })
 
 router.get('/dashboard', async (req, res) => {
