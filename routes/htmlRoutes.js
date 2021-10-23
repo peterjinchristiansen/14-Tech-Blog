@@ -5,19 +5,18 @@ const Comment = require('../models/Comment')
 router.get('/', async (req, res) => {
     let allPosts = []
     await Post.findAll()
-    .then(async posts => {
-        posts.forEach(async x => {
+    .then(posts => {
+        posts.forEach(x => {
             let postComments = []
             await Comment.findAll({ where: { postParent: x.dataValues.id }})
-                .then(async comments => {
-                    comments.forEach(async x => {
+                .then(comments => {
+                    comments.forEach(x => {
                         postComments.push(x.dataValues)
                     })
                 })
             let post = x.dataValues
             post['comments'] = postComments
             allPosts.push(post)
-            console.log(allPosts)
         })
     })
     res.render('home', {
@@ -31,7 +30,7 @@ router.get('/dashboard', async (req, res) => {
     if(req.session.isLoggedIn) {
         await Post.findAll({ where: { postCreator: req.session.username }})
         .then(posts => {
-            posts.forEach(async x => {
+            posts.forEach(x => {
                 let postComments = []
                 await Comment.findAll({ where: { postParent: x.dataValues.id }})
                     .then(comments => {
