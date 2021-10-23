@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
             console.log('1', allPosts)
         })
     })
+    console.log('hello??')
     console.log('2', allPosts)
     res.render('home', {
         allPosts,
