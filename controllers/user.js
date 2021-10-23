@@ -5,11 +5,9 @@ exports.register = async (req, res) => {
     if(req.body.password !== req.body.password2) {
         return res.json({ error: 'Passwords do not match' })
     }
-    const thisID = uuid.v4()
-    console.log(thisID)
     try {
         await User.create({
-            id: thisID,
+            id: uuid.v4(),
             username: req.body.username,
             password: req.body.password
         }, {
@@ -39,7 +37,6 @@ exports.login = async (req, res) => {
         return res.json({ error: 'Passwords do not match' })
     }
     req.session.save(() => {
-        req.session.id = findUser.id
         req.session.username = findUser.username
         req.session.isLoggedIn = true
         return res.json({ success: 'Successfully logged in' })

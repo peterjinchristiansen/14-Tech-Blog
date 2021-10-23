@@ -28,6 +28,10 @@ const Post = database.define('post', {
             }
         }
     },
+    postCreator: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     createdAt: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -43,10 +47,6 @@ const Post = database.define('post', {
     }
 }, {
     timestamps: false
-})
-
-Post.belongsTo(User, {
-    foreignKey: 'postCreator'
 })
 
 module.exports = Post

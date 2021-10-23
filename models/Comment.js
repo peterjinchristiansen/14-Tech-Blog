@@ -19,6 +19,14 @@ const Comment = database.define('comment', {
             }
         }
     },
+    commentCreator: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    postParent: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     createdAt: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -31,17 +39,9 @@ const Comment = database.define('comment', {
     updatedAt: {
         type: Sequelize.STRING,
         allowNull: false
-    } 
+    }
 }, {
     timestamps: false
-})
-
-Comment.belongsTo(User, {
-    foreignKey: 'commentCreator'
-})
-
-Comment.belongsTo(Post, {
-    foreignKey: 'postParent'
 })
 
 module.exports = Comment
