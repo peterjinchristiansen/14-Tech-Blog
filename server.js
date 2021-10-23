@@ -40,6 +40,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/htmlRoutes'))
 app.use('/api', require('./routes/apiRoutes'))
 
+
 app.listen(PORT, () => {
     console.log(`Listening on PORT ${PORT}...`)
+    database.sync({ force: false })
 })
