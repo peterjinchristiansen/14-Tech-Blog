@@ -5,12 +5,12 @@ const Comment = require('../models/Comment')
 router.get('/', async (req, res) => {
     let allPosts = []
     await Post.findAll()
-    .then(posts => {
+    .then(async posts => {
         posts.forEach(async x => {
             let postComments = []
             await Comment.findAll({ where: { postParent: x.dataValues.id }})
-                .then(comments => {
-                    comments.forEach(x => {
+                .then(async comments => {
+                    comments.forEach(async x => {
                         postComments.push(x.dataValues)
                     })
                 })

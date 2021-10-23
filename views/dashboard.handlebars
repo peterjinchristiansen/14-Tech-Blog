@@ -22,7 +22,12 @@
         </div>
     </div>
 </div>
-
+{{#if allPosts}}
+<h1>all posts exists</h1>
+{{/if}}
+{{#if loginStatus}}
+<h1>login status true</h1>
+{{/if}}
 <div class="d-flex flex-wrap m-5 justify-content-center">
     {{#each allPosts}}
     <h1>hello</h1>
