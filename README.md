@@ -15,17 +15,9 @@
 
 [Usage](#usage)
 
-[Contributing](#contributing)
-
-[Tests](#tests)
-
 [Questions](#questions)
 
-[License](#license)
-
 [Screenshot](#screenshot)
-
-[Walkthrough](#walkthrough)
 
 ---
 
