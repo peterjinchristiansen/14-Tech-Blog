@@ -1,9 +1,11 @@
 const Comment = require('../models/Comment')
 const moment = require('moment')
+const uuid = require('uuid')
 
 exports.create = async (req, res) => {
     try {
         await Comment.create({
+            id: uuid.v4(),
             content: req.body.content,
             createdAt: moment().format('dddd, MMMM Do YYYY, h:mm a'),
             postParent: req.body.postID,

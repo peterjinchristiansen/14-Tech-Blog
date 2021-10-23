@@ -4,8 +4,9 @@ const User = require('./User')
 
 const Post = database.define('post', {
     id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
+        type: Sequelize.STRING,
+        primaryKey: true,
+        allowNull: false
     },
     title: {
         type: Sequelize.STRING,
@@ -36,7 +37,10 @@ const Post = database.define('post', {
             }
         }
     },
-    updatedAt: Sequelize.STRING
+    updatedAt: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
 }, {
     timestamps: false
 })

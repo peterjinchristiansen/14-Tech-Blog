@@ -1,10 +1,12 @@
 const Post = require('../models/Post')
 const moment = require('moment')
+const uuid = require('uuid')
 
 exports.create = async (req, res) => {
     const now = moment().format('dddd, MMMM Do YYYY, h:mm a')
     try {
         await Post.create({
+            id: uuid.v4(),
             title: req.body.title,
             content: req.body.content,
             createdAt: now,

@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const uuid = require('uuid')
 
 exports.register = async (req, res) => {
     if(req.body.password !== req.body.password2) {
@@ -6,6 +7,7 @@ exports.register = async (req, res) => {
     }
     try {
         await User.create({
+            id: uuid.v4(),
             username: req.body.username,
             password: req.body.password
         }, {

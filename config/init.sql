@@ -3,25 +3,25 @@ DROP DATABASE IF EXISTS blog;
 CREATE DATABASE blog;
 
 CREATE TABLE IF NOT EXISTS `blog`.`users` (
-    `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(32),
-    `password` VARCHAR(100)
-)
+    `id` VARCHAR(255) PRIMARY KEY NOT NULL,
+    `username` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS `blog`.`posts` (
-    `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `title` VARCHAR(20),
-    `content` VARCHAR(200),
-    `createdAt` VARCHAR(100),
-    `updatedAt` VARCHAR(100),
-    `postCreator` VARCHAR(32) NOT NULL
-)
+    `id` VARCHAR(255) PRIMARY KEY NOT NULL,
+    `title` VARCHAR(255) NOT NULL,
+    `content` VARCHAR(255) NOT NULL,
+    `createdAt` VARCHAR(255) NOT NULL,
+    `updatedAt` VARCHAR(255) NOT NULL,
+    `postCreator` VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS `blog`.`comments` (
-    `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `content` VARCHAR(256),
-    `createdAt` VARCHAR(100),
-    `updatedAt` VARCHAR(100),
-    `postParent` INT NOT NULL,
-    `commentCreator` VARCHAR(32) NOT NULL
+    `id` VARCHAR(255) PRIMARY KEY NOT NULL,
+    `content` VARCHAR(255) NOT NULL,
+    `createdAt` VARCHAR(255) NOT NULL,
+    `updatedAt` VARCHAR(255) NOT NULL,
+    `postParent` VARCHAR(255) NOT NULL,
+    `commentCreator` VARCHAR(255) NOT NULL
 )

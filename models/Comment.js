@@ -5,16 +5,17 @@ const Post = require('./Post')
 
 const Comment = database.define('comment', {
     id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
+        type: Sequelize.STRING,
+        primaryKey: true,
+        allowNull: false
     },
     content: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
             len: {
-                args: [1, 256],
-                msg: 'Title must be between 1 and 256 characters'
+                args: [1, 255],
+                msg: 'Title must be between 1 and 255 characters'
             }
         }
     },
@@ -26,8 +27,11 @@ const Comment = database.define('comment', {
                 msg: 'There was an error getting the date'
             }
         }
-    },
-    updatedAt: Sequelize.STRING
+    },    
+    updatedAt: {
+        type: Sequelize.STRING,
+        allowNull: false
+    } 
 }, {
     timestamps: false
 })
