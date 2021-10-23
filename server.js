@@ -41,5 +41,5 @@ app.use('/', require('./routes/htmlRoutes'))
 app.use('/api', require('./routes/apiRoutes'))
 
 app.listen(PORT, () => {
-    console.log(`Listening on localhost:${PORT}...`)
+    console.log(`Listening on PORT ${PORT}...`)
 })
