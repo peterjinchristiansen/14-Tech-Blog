@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
             let post = x.dataValues
             post['comments'] = postComments
             allPosts.push(post)
+            console.log(allPosts)
         })
     })
     res.render('home', {
